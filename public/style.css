@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightgray;
+    display: grid;
+}
+
+h1 {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 1.5em;
+
+    span {
+        font-size: 0.75em;
+    }
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+main {
+    display: grid;
+    grid-template-areas: 
+    "1 1 2"
+    "3 3 2"
+    "4 4 4";
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+}
+
+section {
+    background-color: white;
+}
+
+.resultaat {
+    grid-area: '1';
+}
+
+.sidebar {
+    grid-area: '2';
+
+    background-color: gray;
+
+    li {
+        background-color: white;
+    }
+}
+
+.foutmeldingen {
+    grid-area: '3';
+}
+
+.toegankelijkheid {
+    grid-area: '4';
+}
