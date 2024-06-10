@@ -1,0 +1,11 @@
+<% console.log(data) %>
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<ul>
+<% data.rows.forEach(function(row) { %>
+  <li><%= row.dimensionValues[0].value %>: <%= row.metricValues[0].value %></li>
+<% }) %>
+</ul>
