@@ -1,8 +1,97 @@
-<% console.log(data) %>
+<% console.log(data.rows) %>
 
-<div>
-  <canvas id="myChart"></canvas>
-</div>
+
+
+<ol>
+  <li>
+    <h2>Users in the last year</h2>
+    <canvas id="countryChart" class="chart"></canvas>
+  </li>
+  <li>
+    <h2>Gender of users</h2>
+    <canvas id="genderChart" class="chart"></canvas>
+  </li>
+</ol>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const country = document.getElementById('countryChart');
+
+
+  // Arrays to store filtered labels and data
+  const filteredLabels = [];
+  const filteredData = [];
+
+  // Variables to accumulate "Other" category data
+  let otherCount = 0;
+  let otherValue = 0;
+
+  // Iterate through the data rows
+  <% data.rows.forEach(function(row) { 
+    const value = parseInt(row.metricValues[0].value); %>
+
+    if (<%= value %> < 10) {
+      // Accumulate data for "Other" category
+      otherCount++;
+      otherValue += <%= value %>;
+    } else {
+      // Add to filtered arrays
+      filteredLabels.push('<%= row.dimensionValues[0].value %>');
+      filteredData.push(<%= value %>);
+    }
+
+  <% }); %>
+
+  // Check if there are any "Other" values to add
+  if (otherCount > 0) {
+    filteredLabels.push('Other');
+    filteredData.push(otherValue);
+  }
+
+  new Chart(country, {
+    type: 'doughnut',
+    data: {
+      labels: filteredLabels,      
+      datasets: [{
+        label: 'Aantal keer bezocht',
+        data: filteredData,          
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });  
+
+
+  const gender = document.getElementById('genderChart');
+
+  new Chart(gender, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+
 
 <ul>
 <% data.rows.forEach(function(row) { %>

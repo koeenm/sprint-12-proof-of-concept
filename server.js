@@ -22,7 +22,7 @@ app.get('/', async (request, response) => {
     property: `properties/${propertyId}`,
     dateRanges: [
       {
-        startDate: '2024-03-31',
+        startDate: '2024-01-01',
         endDate: 'today',
       },
     ],
@@ -37,6 +37,7 @@ app.get('/', async (request, response) => {
       },
     ],
   });
+  
   response.render('home.ejs', {data: apiDataCountries})
 })
 
