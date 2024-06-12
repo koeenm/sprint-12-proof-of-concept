@@ -17,6 +17,8 @@ app.listen(app.get('port'), function () {
   console.log(`Application started on http://localhost:${app.get('port')}`)
 })
 
+// Hier kan je alle properties vinden
+// https://developers.google.com/analytics/devguides/reporting/data/v1/api-schema
 app.get('/', async (request, response) => {
   const [apiDataCountries] = await analyticsDataClient.runReport({
     property: `properties/${propertyId}`,
@@ -38,7 +40,29 @@ app.get('/', async (request, response) => {
     ],
   });
   
-  response.render('home.ejs', {data: apiDataCountries})
+  const [apiDataBrowser] = await analyticsDataClient.runReport({
+    property: `properties/${propertyId}`,
+    dateRanges: [
+      {
+        startDate: '2020-01-01',
+        endDate: 'today',
+      },
+    ],
+    dimensions: [
+      {
+        name: 'browser',
+      },
+    ],
+    metrics: [
+      {
+        name: 'activeUsers',
+      },
+    ],
+  });
+  response.render('home.ejs', 
+    {country: apiDataCountries,
+      browser : apiDataBrowser
+  })
 })
 
 
