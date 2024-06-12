@@ -1,22 +1,22 @@
-<% console.log(devices.rows) %>
+<!-- <% console.log(devices.rows) %> -->
 <%- include('./partials/head') %>
+<main>
+  <ol class="charts">
+    <li>
+      <h2>Users in the last year</h2>
+      <canvas id="countryChart" class="chart"></canvas>
+    </li>
+    <li>
+      <h2>browser of users</h2>
+      <canvas id="browserChart" class="chart"></canvas>
+    </li>
+    <li>
+      <h2>browser of users</h2>
+      <canvas id="devicesChart" class="chart"></canvas>
+    </li>
+  </ol>
 
-<ol class="charts">
-  <li>
-    <h2>Users in the last year</h2>
-    <canvas id="countryChart" class="chart"></canvas>
-  </li>
-  <li>
-    <h2>browser of users</h2>
-    <canvas id="browserChart" class="chart"></canvas>
-  </li>
-  <li>
-    <h2>browser of users</h2>
-    <canvas id="devicesChart" class="chart"></canvas>
-  </li>
-</ol>
-
-
+</main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
