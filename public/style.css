@@ -9,7 +9,7 @@
     --greyscale-color-dark: #120B11;
     --greyscale-color-grey: #302A2F;
     --greyscale-color-light-grey: #736f72;
-    --greyscale-color-white: #d9d9d9;
+    --greyscale-color-white: #eaeaea;
     --color-green: #B9FFB7;
     --color-orange: #FF7535;
     --color-purple: #5E43FF;
@@ -30,6 +30,7 @@ html {
 
 main {
     background: var(--greyscale-color-light-grey);
+    padding: 1em
 }
 
 header {
@@ -37,4 +38,46 @@ header {
     padding: 1em;
     display: flex;
     align-items: center;
+}
+
+ol {
+    display: block;
+    list-style-type: none;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0;
+    unicode-bidi: isolate;
+}
+
+.charts {
+    display: flex;
+    gap: 1.5em;
+    flex-direction: column;
+    align-items: center;
+}
+
+.charts li {
+    --regular-background-radius: 3em;
+    --mobile-min-width-chart: 20em;
+    --mobile-max-width-chart: 40em;
+
+    background-color: var(--greyscale-color-white);
+    padding: 1em;
+    border-radius: var(--regular-background-radius);
+    width: 40em;
+    height: 40em;
+}
+
+.charts li h2 {
+    font-size: 2em;
+    text-align: center;
+}
+.charts li .charts-description {
+    opacity: 70%;
+}
+
+.charts canvas {
+    fon
 }

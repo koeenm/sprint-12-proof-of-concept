@@ -4,21 +4,33 @@
   <ol class="charts">
     <li>
       <h2>Users in the last year</h2>
-      <canvas id="countryChart" class="chart"></canvas>
+      <p class="charts-description">Which users have used our site, based on their country</p>
+      <canvas id="countryChart" class="chart" width="400" height=""></canvas>
     </li>
     <li>
       <h2>browser of users</h2>
-      <canvas id="browserChart" class="chart"></canvas>
+      <canvas id="browserChart" class="chart" width="400" height=""></canvas>
     </li>
     <li>
       <h2>browser of users</h2>
-      <canvas id="devicesChart" class="chart"></canvas>
+      <canvas id="devicesChart" class="chart" width="400" height=""></canvas>
     </li>
   </ol>
 
 </main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+
+const colourTheme = [
+  '#B9FFB7',
+  '#FF7535',
+  '#5E43FF'
+];
+
+const borderColour = ['#302A2F;'];
+const borderWidth = 1.5;
+
+
 
 const country = document.getElementById('countryChart');
 function createCountryChart() {
@@ -59,7 +71,9 @@ function createCountryChart() {
       datasets: [{
         label: 'Aantal keer bezocht',
         data: data,
-        borderWidth: 1
+        backgroundColor: colourTheme,
+        borderWidth: borderWidth,
+        borderColor: borderColour
       }]
     },
     options: {
@@ -113,7 +127,10 @@ new Chart(browser, {
     datasets: [{
       label: 'Aantal keer bezocht',
       data: data,
-      borderWidth: 1
+      backgroundColor: colourTheme,
+      borderWidth: borderWidth,
+      borderColor: borderColour
+
     }]
   },
   options: {
@@ -167,7 +184,10 @@ new Chart(devices, {
     datasets: [{
       label: 'Aantal keer bezocht',
       data: data,
-      borderWidth: 1
+      backgroundColor: colourTheme,
+      borderWidth: borderWidth,
+      borderColor: borderColour
+
     }]
   },
   options: {
