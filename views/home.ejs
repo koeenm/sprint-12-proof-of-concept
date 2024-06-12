@@ -1,9 +1,7 @@
-<% console.log(country.rows) %>
+<% console.log(devices.rows) %>
+<%- include('./partials/head') %>
 
-
-
-
-<ol>
+<ol class="charts">
   <li>
     <h2>Users in the last year</h2>
     <canvas id="countryChart" class="chart"></canvas>
@@ -12,15 +10,17 @@
     <h2>browser of users</h2>
     <canvas id="browserChart" class="chart"></canvas>
   </li>
+  <li>
+    <h2>browser of users</h2>
+    <canvas id="devicesChart" class="chart"></canvas>
+  </li>
 </ol>
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+
 const country = document.getElementById('countryChart');
-const browser = document.getElementById('browserChart');
-
-
 function createCountryChart() {
   const countryData = <%- JSON.stringify(country.rows) %>;
   // Initialize variables for "Other" group
@@ -71,7 +71,9 @@ function createCountryChart() {
     }
   });
 }
+createCountryChart();
 
+const browser = document.getElementById('browserChart');
 function createBrowserChart() {
   const browserData = <%- JSON.stringify(browser.rows) %>;
 
@@ -105,7 +107,7 @@ if (otherValue > 0) {
 
 // Create the chart
 new Chart(browser, {
-  type: 'doughnut',
+  type: 'bar',
   data: {
     labels: labels,
     datasets: [{
@@ -123,15 +125,67 @@ new Chart(browser, {
   }
 });
 }
-
-createCountryChart();
 createBrowserChart();
+
+const devices = document.getElementById('devicesChart');
+function createdevicesChart() {
+  const devicesData = <%- JSON.stringify(devices.rows) %>;
+
+// Initialize variables for "Other" group
+let otherValue = 0;
+
+// Arrays to store labels and data
+const labels = [];
+const data = [];
+
+// Iterate through the data rows
+devicesData.forEach(function(row) {
+  const value = parseInt(row.metricValues[0].value);
+  const label = row.dimensionValues[0].value;
+
+  if (value < 15) {
+    // Aggregate values for "Other" group
+    otherValue += value;
+  } else {
+    // Add label and value to respective arrays
+    labels.push(label);
+    data.push(value);
+  }
+});
+
+// Add "Other" group if it has data
+if (otherValue > 0) {
+  labels.push('Other');
+  data.push(otherValue);
+}
+
+// Create the chart
+new Chart(devices, {
+  type: 'bar',
+  data: {
+    labels: labels,
+    datasets: [{
+      label: 'Aantal keer bezocht',
+      data: data,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+}
+createdevicesChart();
 
 </script>
 
 
-<ul>
-<% browser.rows.forEach(function(row) { %>
+<!-- <ul>
+<% devices.rows.forEach(function(row) { %>
   <li><%= row.dimensionValues[0].value %>: <%= row.metricValues[0].value %></li>
 <% }) %>
-</ul>
+</ul> -->

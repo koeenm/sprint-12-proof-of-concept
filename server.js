@@ -59,9 +59,30 @@ app.get('/', async (request, response) => {
       },
     ],
   });
+
+  const [apiDataGender] = await analyticsDataClient.runReport({
+    property: `properties/${propertyId}`,
+    dateRanges: [
+      {
+        startDate: '2020-01-01',
+        endDate: 'today',
+      },
+    ],
+    dimensions: [
+      {
+        name: 'deviceCategory',
+      },
+    ],
+    metrics: [
+      {
+        name: 'activeUsers',
+      },
+    ],
+  });
   response.render('home.ejs', 
     {country: apiDataCountries,
-      browser : apiDataBrowser
+      browser : apiDataBrowser,
+      devices : apiDataGender
   })
 })
 
