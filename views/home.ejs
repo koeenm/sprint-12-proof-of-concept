@@ -1,4 +1,4 @@
-<% console.log(browser.rows) %>
+<% console.log(country.rows) %>
 
 
 
@@ -17,46 +17,48 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const country = document.getElementById('countryChart');
+const country = document.getElementById('countryChart');
+const browser = document.getElementById('browserChart');
 
 
-  // Arrays to store filtered labels and data
-  const filteredLabels = [];
-  const filteredData = [];
-
-  // Variables to accumulate "Other" category data
-  let otherCount = 0;
+function createCountryChart() {
+  const countryData = <%- JSON.stringify(country.rows) %>;
+  // Initialize variables for "Other" group
   let otherValue = 0;
 
+  // Arrays to store labels and data
+  const labels = [];
+  const data = [];
+
   // Iterate through the data rows
-  <% country.rows.forEach(function(row) { 
-    const value = parseInt(row.metricValues[0].value); %>
+  countryData.forEach(function(row) {
+    const value = parseInt(row.metricValues[0].value);
+    const label = row.dimensionValues[0].value;
 
-    if (<%= value %> < 10) {
-      // Accumulate data for "Other" category
-      otherCount++;
-      otherValue += <%= value %>;
+    if (value < 13) {
+      // Aggregate values for "Other" group
+      otherValue += value;
     } else {
-      // Add to filtered arrays
-      filteredLabels.push('<%= row.dimensionValues[0].value %>');
-      filteredData.push(<%= value %>);
+      // Add label and value to respective arrays
+      labels.push(label);
+      data.push(value);
     }
+  });
 
-  <% }); %>
-
-  // Check if there are any "Other" values to add
-  if (otherCount > 0) {
-    filteredLabels.push('Other');
-    filteredData.push(otherValue);
+  // Add "Other" group if it has data
+  if (otherValue > 0) {
+    labels.push('Other');
+    data.push(otherValue);
   }
 
+  // Create the chart
   new Chart(country, {
     type: 'doughnut',
     data: {
-      labels: filteredLabels,      
+      labels: labels,
       datasets: [{
         label: 'Aantal keer bezocht',
-        data: filteredData,          
+        data: data,
         borderWidth: 1
       }]
     },
@@ -67,41 +69,65 @@
         }
       }
     }
-  });  
+  });
+}
 
+function createBrowserChart() {
+  const browserData = <%- JSON.stringify(browser.rows) %>;
 
-  const browser = document.getElementById('browserChart');
-  const labels = browser.rows.map(row => row.dimensionValues[0].value);
+// Initialize variables for "Other" group
+let otherValue = 0;
 
-  new Chart(browser, {
-    type: 'doughnut',
-    data: {
-      labels: [
-      <% browser.rows.forEach(function(row, index) { %>
-        '<%= row.dimensionValues[0].value %>'<% if (index < browser.rows.length - 1) { %>,<% } %>
-      <% }); %>
-    ],      
+// Arrays to store labels and data
+const labels = [];
+const data = [];
+
+// Iterate through the data rows
+browserData.forEach(function(row) {
+  const value = parseInt(row.metricValues[0].value);
+  const label = row.dimensionValues[0].value;
+
+  if (value < 15) {
+    // Aggregate values for "Other" group
+    otherValue += value;
+  } else {
+    // Add label and value to respective arrays
+    labels.push(label);
+    data.push(value);
+  }
+});
+
+// Add "Other" group if it has data
+if (otherValue > 0) {
+  labels.push('Other');
+  data.push(otherValue);
+}
+
+// Create the chart
+new Chart(browser, {
+  type: 'doughnut',
+  data: {
+    labels: labels,
     datasets: [{
-        label: 'Aantal keer bezocht',
-        data: [
-      <% browser.rows.forEach(function(row, index) { %>
-        '<%= row.metricValues[0].value %>'<% if (index < browser.rows.length - 1) { %>,<% } %>
-      <% }); %>
-    ],          borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+      label: 'Aantal keer bezocht',
+      data: data,
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
       }
     }
-  });
-</script>
-<script>
-</script>
+  }
+});
+}
 
+createCountryChart();
+createBrowserChart();
+
+</script>
 
 
 <ul>
