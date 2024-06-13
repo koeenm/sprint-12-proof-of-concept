@@ -1,0 +1,45 @@
+<section class="result">
+    <div class="scan-result">
+        <h2>Automatische scan resultaat</h2>
+        <p> <%= scanDetail.description %> </p>
+        <p>Resultaat: <%= scanDetail.score %>%</p>
+    </div>
+
+    <% console.log(scanDetail) %>
+
+    <div class="doughnut-chart">
+        <canvas id="doughnut-chart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const doughnutChart = document.getElementById('doughnut-chart');
+        const score = <%= scanDetail.score %>;
+
+        new Chart(doughnutChart, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    label: 'Scan Score',
+                    data: [score, 100 - score],
+                    backgroundColor: ['#FF9800', '#FFE0B3'],
+                    borderWidth: 0.25,
+                    borderRadius: [10, 0],
+                }]
+            },
+            options: {
+                cutout: '70%',
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</section>

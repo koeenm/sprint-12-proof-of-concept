@@ -1,37 +1,11 @@
 <%- include('./partials/head') %>
 
 <main>
-    <h1><span>Automatische scan</span>Nieuwekijk/home</h1>
-
-    <section class="resultaat">
-        <h2>Automatische scan resultaat</h2>
-        
-        <p>Uw webpagina <span>voldoet niet</span> aan de wcag richtlijnen.</p>
-
-        <p>Er zijn meerdere fouten ontdekt die verholpen moeten worden om de toegankelijkheid te waarborgen.</p>
-    </section>
-
-    <section class="sidebar">
-        <button></button>
-        <button></button>
-        <button></button>
-
-        <ul>
-            <li>ontdekte fouten</li>
-            <li>structurele fouten</li>
-            <li>ontbrekende aria-labels</li>
-            <li>contrast fouten</li>
-            <li>ontbrekende alt-teksten</li>
-        </ul>
-    </section>
-
-    <section class="foutmeldingen">
-        <h3>Soorten foutmeldingen</h3>
-    </section>
-
-    <section class="toegankelijkheid">
-        <h3>Toegankelijkheid</h3>
-    </section>
+    <ul>
+        <% scanSite.forEach(scanSite => { %>
+            <li><a href="/<%= scanSite.title %>"><%= scanSite.title %></a></li>
+        <% }) %>
+    </ul>
 </main>
 
 <%- include('./partials/foot') %>

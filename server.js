@@ -10,8 +10,20 @@ app.set('views', './views')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (request, response) => {
-    response.render('index')
+app.get('/', (request,response) => {
+  fetchJson(fdr_site).then((scanSites) => {
+    response.render('index', {
+      scanSite: scanSites.data
+    })
+  })
+})
+
+app.get('/:siteTitle/', (request, response) => {
+  fetchJson(frd_scans).then((scanDetails) => {
+    response.render('detail', {
+      scanDetail: scanDetails.data[0]
+    })
+  })
 })
 
 app.set('port', process.env.PORT || 8080)
