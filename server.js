@@ -60,7 +60,7 @@ app.get('/', async (request, response) => {
     ],
   });
 
-  const [apiDataGender] = await analyticsDataClient.runReport({
+  const [apiDataDevices] = await analyticsDataClient.runReport({
     property: `properties/${propertyId}`,
     dateRanges: [
       {
@@ -82,7 +82,7 @@ app.get('/', async (request, response) => {
   response.render('home.ejs', 
     {country: apiDataCountries,
       browser : apiDataBrowser,
-      devices : apiDataGender
+      devices : apiDataDevices
   })
 })
 
