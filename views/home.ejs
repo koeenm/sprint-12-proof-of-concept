@@ -18,36 +18,91 @@
   </ol>
 
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
-const colourTheme = [
-  '#B9FFB7',
-  '#FF7535',
-  '#5E43FF'
-];
-
-const borderColour = ['#302A2F;'];
-const borderWidth = 1.5;
-
-
-
-const country = document.getElementById('countryChart');
-function createCountryChart() {
-  const countryData = <%- JSON.stringify(country.rows) %>;
+  const colourTheme = [
+    '#B9FFB7',
+    '#FF7535',
+    '#5E43FF'
+  ];
+  
+  const borderColour = ['#302A2F;'];
+  const borderWidth = 1.5;
+  
+  const country = document.getElementById('countryChart');
+  function createCountryChart() {
+    const countryData = <%- JSON.stringify(country.rows) %>;
+    // Initialize variables for "Other" group
+    let otherValue = 0;
+  
+    // Arrays to store labels and data
+    const labels = [];
+    const data = [];
+  
+    // Iterate through the data rows
+    countryData.forEach(function(row) {
+      const value = parseInt(row.metricValues[0].value);
+      const label = row.dimensionValues[0].value;
+  
+      if (value < 13) {
+        // Aggregate values for "Other" group
+        otherValue += value;
+      } else {
+        // Add label and value to respective arrays
+        labels.push(label);
+        data.push(value);
+      }
+    });
+  
+    // Add "Other" group if it has data
+    if (otherValue > 0) {
+      labels.push('Other');
+      data.push(otherValue);
+    }
+  
+    // Create the chart
+    new Chart(country, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Aantal keer bezocht',
+          data: data,
+          backgroundColor: colourTheme,
+          borderWidth: borderWidth,
+          borderColor: borderColour
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
+  createCountryChart();
+  
+  const browser = document.getElementById('browserChart');
+  function createBrowserChart() {
+    const browserData = <%- JSON.stringify(browser.rows) %>;
+  
   // Initialize variables for "Other" group
   let otherValue = 0;
-
+  
   // Arrays to store labels and data
   const labels = [];
   const data = [];
-
+  
   // Iterate through the data rows
-  countryData.forEach(function(row) {
+  browserData.forEach(function(row) {
     const value = parseInt(row.metricValues[0].value);
     const label = row.dimensionValues[0].value;
-
-    if (value < 13) {
+  
+    if (value < 15) {
       // Aggregate values for "Other" group
       otherValue += value;
     } else {
@@ -56,16 +111,73 @@ function createCountryChart() {
       data.push(value);
     }
   });
-
+  
   // Add "Other" group if it has data
   if (otherValue > 0) {
     labels.push('Other');
     data.push(otherValue);
   }
-
+  
   // Create the chart
-  new Chart(country, {
-    type: 'doughnut',
+  new Chart(browser, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Aantal keer bezocht',
+        data: data,
+        backgroundColor: colourTheme,
+        borderWidth: borderWidth,
+        borderColor: borderColour
+  
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  }
+  createBrowserChart();
+  
+  const devices = document.getElementById('devicesChart');
+  function createdevicesChart() {
+    const devicesData = <%- JSON.stringify(devices.rows) %>;
+  
+  // Initialize variables for "Other" group
+  let otherValue = 0;
+  
+  // Arrays to store labels and data
+  const labels = [];
+  const data = [];
+  
+  // Iterate through the data rows
+  devicesData.forEach(function(row) {
+    const value = parseInt(row.metricValues[0].value);
+    const label = row.dimensionValues[0].value;
+  
+    if (value < 15) {
+      // Aggregate values for "Other" group
+      otherValue += value;
+    } else {
+      // Add label and value to respective arrays
+      labels.push(label);
+      data.push(value);
+    }
+  });
+  
+  // Add "Other" group if it has data
+  if (otherValue > 0) {
+    labels.push('Other');
+    data.push(otherValue);
+  }
+  
+  // Create the chart
+  new Chart(devices, {
+    type: 'bar',
     data: {
       labels: labels,
       datasets: [{
@@ -84,128 +196,14 @@ function createCountryChart() {
       }
     }
   });
-}
-createCountryChart();
-
-const browser = document.getElementById('browserChart');
-function createBrowserChart() {
-  const browserData = <%- JSON.stringify(browser.rows) %>;
-
-// Initialize variables for "Other" group
-let otherValue = 0;
-
-// Arrays to store labels and data
-const labels = [];
-const data = [];
-
-// Iterate through the data rows
-browserData.forEach(function(row) {
-  const value = parseInt(row.metricValues[0].value);
-  const label = row.dimensionValues[0].value;
-
-  if (value < 15) {
-    // Aggregate values for "Other" group
-    otherValue += value;
-  } else {
-    // Add label and value to respective arrays
-    labels.push(label);
-    data.push(value);
   }
-});
-
-// Add "Other" group if it has data
-if (otherValue > 0) {
-  labels.push('Other');
-  data.push(otherValue);
-}
-
-// Create the chart
-new Chart(browser, {
-  type: 'bar',
-  data: {
-    labels: labels,
-    datasets: [{
-      label: 'Aantal keer bezocht',
-      data: data,
-      backgroundColor: colourTheme,
-      borderWidth: borderWidth,
-      borderColor: borderColour
-
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-});
-}
-createBrowserChart();
-
-const devices = document.getElementById('devicesChart');
-function createdevicesChart() {
-  const devicesData = <%- JSON.stringify(devices.rows) %>;
-
-// Initialize variables for "Other" group
-let otherValue = 0;
-
-// Arrays to store labels and data
-const labels = [];
-const data = [];
-
-// Iterate through the data rows
-devicesData.forEach(function(row) {
-  const value = parseInt(row.metricValues[0].value);
-  const label = row.dimensionValues[0].value;
-
-  if (value < 15) {
-    // Aggregate values for "Other" group
-    otherValue += value;
-  } else {
-    // Add label and value to respective arrays
-    labels.push(label);
-    data.push(value);
-  }
-});
-
-// Add "Other" group if it has data
-if (otherValue > 0) {
-  labels.push('Other');
-  data.push(otherValue);
-}
-
-// Create the chart
-new Chart(devices, {
-  type: 'bar',
-  data: {
-    labels: labels,
-    datasets: [{
-      label: 'Aantal keer bezocht',
-      data: data,
-      backgroundColor: colourTheme,
-      borderWidth: borderWidth,
-      borderColor: borderColour
-
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-});
-}
-createdevicesChart();
+  createdevicesChart();
 
 </script>
 
 
 <!-- <ul>
-<% devices.rows.forEach(function(row) { %>
-  <li><%= row.dimensionValues[0].value %>: <%= row.metricValues[0].value %></li>
-<% }) %>
+  <% devices.rows.forEach(function(row) { %>
+    <li><%= row.dimensionValues[0].value %>: <%= row.metricValues[0].value %></li>
+  <% }) %>
 </ul> -->
