@@ -21,7 +21,7 @@ app.get('/', (request,response) => {
 app.get('/:siteTitle/', (request, response) => {
   fetchJson(frd_scans).then((scanDetails) => {
     response.render('detail', {
-      scanDetail: scanDetails.data[0]
+      scanDetail: scanDetails.data
     })
   })
 })

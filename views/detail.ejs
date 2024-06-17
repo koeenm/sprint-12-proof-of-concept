@@ -1,22 +1,19 @@
 <%- include('./partials/head') %>
 
     <main>
-  <div class="error-message">
-    <img src="images/screensize.png" alt="screen is not big enough">
-    <h2>Je scherm is te klein</h2>
-    <p>AccessDash vereist een minimale schermbreedte van 900px</p>
-  </div>
-  
-  <div class="main-content">
-    <section class="heading">
+
+        <%- include('./partials/errorstate') %>
+        
+        <div class="main-content">
+            <section class="heading">
       <h1><span>Automatische scan</span>Nieuwekijk/home</h1>
       <!-- moet er nog voor zorgen dat dit ook dynamische data wordt -->
 
       <div class="carousel-nav">
-        <a href="?month=05"><</a>
-        <p> <%= new Date(scanDetail.date).toLocaleDateString('en-US', { month: 'long' }) %> </p>
-        <a href="?month=<%= new Date(scanDetail.date).toLocaleDateString('en-US', { month: 'long' }) %>">></a>
-      </div>
+        <a href="?month=<%= new Date(new Date(scanDetail.date).setMonth(new Date(scanDetail.date).getMonth() - 1)).toLocaleDateString('en-US', { month: 'long' }) %>"><</a>
+        <p> <%= new Date(scanDetail.date).toLocaleDateString('en-US', { month: 'short' }) %> </p>
+        <a href="?month=<%= new Date(new Date(scanDetail.date).setMonth(new Date(scanDetail.date).getMonth() + 1)).toLocaleDateString('en-US', { month: 'long' }) %>">></a>
+      </div>      
       
     </section>
     
@@ -24,7 +21,7 @@
 
     <%- include('./partials/blocks') %>
 
-    <section class="foutmeldingen">
+    <section class="foutmeldingen" tabindex="0">
       <h3>Soorten foutmeldingen</h3>
       <div>
         <canvas id="bar-chart"></canvas>
@@ -61,7 +58,7 @@
       
     </section>
 
-    <section class="toegankelijkheid">
+    <section class="toegankelijkheid" tabindex="0">
       <h3>Toegankelijkheid</h3>
       <div>
         <canvas id="myChart"></canvas>
@@ -72,7 +69,7 @@
       <script>
         const ctx = document.getElementById('myChart');
         const allScores = allScores.forEach(score => {
-            
+
         })
       
         new Chart(ctx, {
