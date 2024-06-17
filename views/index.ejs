@@ -3,7 +3,9 @@
 <main>
     <ul>
         <% scanSite.forEach(scanSite => { %>
-            <li><a href="/<%= scanSite.title %>"><%= scanSite.title %></a></li>
+            <li>
+                <a href="/<%= scanSite.title %>"><%= scanSite.title %></a>
+            </li>
         <% }) %>
     </ul>
 </main>
