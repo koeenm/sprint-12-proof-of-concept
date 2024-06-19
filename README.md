@@ -27,6 +27,8 @@ De bedoeling is een detail pagina van een automatische toegankelijkheid scan ont
 Hiermee krijg je een goed beeld van de toegankelijkheid van je website.
 <!-- Bij Gebruik staat de user story, hoe het werkt en wat je er mee kan. -->
 
+Voor uitleg van bepaalde dingen uit mijn code, of andere dingen, zoals schetsen of testen, staat er in mijn wiki uitleg
+
 ## Kenmerken
 ### Technieken
 - Html
