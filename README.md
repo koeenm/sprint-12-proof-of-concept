@@ -40,7 +40,7 @@ Voor uitleg van bepaalde dingen uit mijn code, of andere dingen, zoals schetsen 
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
 
 ## Installatie
-Om met dit project aan de slag te gaan moet er eerst nog Node.js geinstalleerd worden. Dit kan je doen door in de terminal van je code editor `npm install` in te voeren. Hierdoor word node geinstalleerd en krijg je automatisch de bijbehorende packages hiervoor. 
+Als eerste stap moet je deze repo clonen naar je eigen git desktop. Daarna, om met dit project aan de slag te gaan moet er eerst nog Node.js geinstalleerd worden. Dit kan je doen door in de terminal van je code editor `npm install` in te voeren. Hierdoor word node geinstalleerd en krijg je automatisch de bijbehorende packages hiervoor. 
 <!-- Bij Instalatie staat hoe een andere developer aan jouw repo kan werken -->
 
 ## Bronnen
