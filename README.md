@@ -38,6 +38,7 @@ Hiermee krijg je een goed beeld van de toegankelijkheid van je website.
 <!-- Bij Kenmerken staat welke technieken zijn gebruikt en hoe. Wat is de HTML structuur? Wat zijn de belangrijkste dingen in CSS? Wat is er met JS gedaan en hoe? Misschien heb je iets met NodeJS gedaan, of heb je een framwork of library gebruikt? -->
 
 ## Installatie
+Om met dit project aan de slag te gaan moet er eerst nog Node.js geinstalleerd worden. Dit kan je doen door in de terminal van je code editor `npm install` in te voeren. Hierdoor word node geinstalleerd en krijg je automatisch de bijbehorende packages hiervoor. 
 <!-- Bij Instalatie staat hoe een andere developer aan jouw repo kan werken -->
 
 ## Bronnen
